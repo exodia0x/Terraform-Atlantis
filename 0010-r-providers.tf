@@ -14,7 +14,7 @@ terraform {
     }
   }
   required_version = ">= 1.12"
-  backend "s3" {}
+  backend "local" {}
 }
 
 provider "azurerm" {
