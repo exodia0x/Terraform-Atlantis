@@ -1,6 +1,8 @@
 version: 3
 parallel_plan: true
 parallel_apply: true
+
+################ PROJECTS ###################
 projects:
   - name: DEV
     workspace: dev
@@ -10,19 +12,15 @@ projects:
       when_modified: ["*.tf", "*.tfvars", "../*"]
       enabled: true
 
+################ WORKFLOWS ###################
 workflows:
   Dev:
     plan:
       steps:
       - init
       - plan:
-          extra_args: ["-var-file", "main.tfvars"]
+          extra_args: ["-var-file=main.tfvars"]
     apply:
       steps:
         - apply:
-            extra_args: ["-var-file", "main.tfvars"]
-    state_rm:
-      steps:
-        - init
-        - state_rm:
-            extra_args: ["-lock=false"]
+            extra_args: ["-var-file=main.tfvars"]
