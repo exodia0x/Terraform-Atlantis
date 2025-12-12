@@ -1,0 +1,28 @@
+version: 3
+parallel_plan: true
+parallel_apply: true
+projects:
+  - name: DEV
+    workspace: dev
+    workflow: Dev
+    dir: Environment/DEV
+    autoplan:
+      when_modified: ["*.tf", "*.tfvars", "../*"]
+    enabled: true
+
+workflows:
+  Dev:
+    plan:
+      steps:
+      - init
+      - plan:
+          extra_args: ["-var-file", "main.tfvars"]
+    apply:
+      steps:
+        - apply:
+            extra_args: ["-var-file", "main.tfvars"]
+    state_rm:
+      steps:
+        - init
+        - state_rm:
+            extra_args: ["-lock=false"]
