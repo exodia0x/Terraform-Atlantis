@@ -7,7 +7,7 @@ projects:
     workflow: Dev
     dir: Environment/DEV
     autoplan:
-      when_modified: ["*.tf", "*.tfvars", "../*"]
+      when_modified: ["*.tf", "*.tfvars", "../../*"]
     enabled: true
 
 workflows:
